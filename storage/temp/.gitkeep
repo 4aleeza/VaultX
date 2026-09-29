@@ -1,0 +1,4 @@
+# Storage directory placeholder.
+# This directory holds temporary files during processing (e.g. chunked uploads,
+# encryption in progress). Contents are cleaned up after processing.
+# This directory is mounted inside Docker.

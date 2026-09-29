@@ -1,0 +1,12 @@
+# Storage directory placeholder.
+# This directory holds encrypted files at rest.
+#
+# Files are stored using a sharded layout keyed by a hash/UUID prefix, e.g.:
+#   encrypted/
+#       2f/
+#           2f3a95b8.enc
+#       1a/
+#           1a7e3f91.enc
+#
+# Original filenames are NEVER used on disk. Metadata (including the original
+# name) is stored in PostgreSQL. This directory is mounted inside Docker.

@@ -1,0 +1,37 @@
+# SecureVault - Python dependencies
+# =============================================================================
+# Core web framework
+Flask==3.0.3
+
+# CSRF protection
+Flask-WTF==1.2.1
+
+# Rate limiting
+Flask-Limiter==4.1.1
+
+# ORM and database migrations
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.0.7
+psycopg2-binary==2.9.12
+
+# Redis client
+Flask-Redis==0.4.0
+redis==5.0.7
+
+# Celery task queue
+Celery==5.4.0
+
+# Environment variable loading
+python-dotenv==1.0.1
+
+# Password hashing (Argon2)
+argon2-cffi==23.1.0
+
+# Production WSGI server
+gunicorn==22.0.0
+
+# Testing
+pytest==8.2.2
+# In-memory Redis backend for tests (backs the existing redis_client without a
+# real Redis server). Test-only; not used in production.
+fakeredis==2.37.0

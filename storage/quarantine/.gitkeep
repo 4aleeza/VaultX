@@ -1,0 +1,4 @@
+# Storage directory placeholder.
+# This directory holds files flagged as suspicious or malicious (e.g. an
+# executable renamed to a PDF). Files here are isolated and never served.
+# This directory is mounted inside Docker.

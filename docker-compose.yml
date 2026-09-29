@@ -1,0 +1,76 @@
+# =============================================================================
+# SecureVault - Docker Compose
+# =============================================================================
+# Orchestrates the Flask application, PostgreSQL database, and Redis cache.
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Flask web application
+  # ---------------------------------------------------------------------------
+  web:
+    build: .
+    container_name: securevault-web
+    ports:
+      - "5000:5000"
+    environment:
+      # Load all environment variables from the .env file.
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=${DEBUG}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    # Mount the storage directory so encrypted files persist on the host.
+    volumes:
+      - ./storage:/app/storage
+    # Health check so Compose can verify the app is responsive.
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL database
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: securevault-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-securevault}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-securevault}
+      POSTGRES_DB: ${POSTGRES_DB:-securevault}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-securevault}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Redis cache / message broker
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: securevault-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+# Named volume for persistent PostgreSQL data.
+volumes:
+  postgres_data:

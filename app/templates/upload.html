@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set active_page = "upload" %}
+
+{% block title %}Upload File{% endblock %}
+
+{% block page_title %}Upload File{% endblock %}
+{% block page_subtitle %}Upload a new file to your secure vault{% endblock %}
+
+{% block content %}
+    <div class="card upload-panel" style="max-width: 560px;">
+        <div class="card-header">
+            <h2>Upload File</h2>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{{ url_for('files.upload') }}" enctype="multipart/form-data" class="upload-form">
+                {# CSRF token required by Flask-WTF CSRFProtect on every POST. #}
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="drop-zone">
+                    <div class="drop-zone-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <path d="M17 8l-5-5-5 5"/>
+                            <path d="M12 3v12"/>
+                        </svg>
+                    </div>
+                    <p class="drop-zone-title">Drag and drop your file here</p>
+                    <p class="drop-zone-sub">or click to browse</p>
+                    <label for="file" class="btn btn-primary">+ Choose File</label>
+                    <input type="file" id="file" name="file" class="file-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Upload File</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

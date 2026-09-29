@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Environment files (never commit real secrets)
+.env
+
+# Database / cache
+*.sqlite3
+*.db
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Storage contents (keep the .gitkeep placeholder files)
+storage/uploads/*
+storage/encrypted/*
+storage/quarantine/*
+storage/temp/*
+!storage/**/.gitkeep

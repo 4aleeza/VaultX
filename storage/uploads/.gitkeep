@@ -1,0 +1,3 @@
+# Storage directory placeholder.
+# This directory holds files that are being uploaded but not yet processed.
+# It is mounted inside Docker via a volume.

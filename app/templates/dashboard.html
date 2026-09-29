@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% set active_page = "dashboard" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+{% block page_subtitle %}Welcome back, {{ user.username }} &middot; {{ user.email }}{% endblock %}
+
+{% block content %}
+    {# ------------------------------------------------------------------ #
+       Statistics cards (presentation/demo values only — no DB queries)
+       ------------------------------------------------------------------ #}
+    <section class="stats-grid" aria-label="Statistics">
+        <div class="stat-card">
+            <div class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <path d="M14 2v6h6"/>
+                </svg>
+            </div>
+            <div class="stat-content">
+                <p class="stat-label">Total Files</p>
+                <p class="stat-value">12</p>
+                <p class="stat-sub"><span class="trend">+2</span> this week</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <path d="M17 8l-5-5-5 5"/>
+                    <path d="M12 3v12"/>
+                </svg>
+            </div>
+            <div class="stat-content">
+                <p class="stat-label">Storage Used</p>
+                <p class="stat-value">2.4 GB</p>
+                <p class="stat-sub">of 10 GB</p>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+            </div>
+            <div class="stat-content">
+                <p class="stat-label">Security Status</p>
+                <p class="stat-value">CLEAN</p>
+                <p class="stat-sub">All files are secure</p>
+            </div>
+        </div>
+    </section>
+
+    {# ------------------------------------------------------------------ #
+       Recent files + upload panel
+       ------------------------------------------------------------------ #}
+    <section class="dashboard-grid">
+        <div class="card">
+            <div class="card-header">
+                <h2>Recent Files</h2>
+            </div>
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">File Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Uploaded</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="file-cell">
+                                    <span class="file-type-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <path d="M14 2v6h6"/>
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div class="file-name">report.pdf</div>
+                                        <div class="file-kind">PDF Document</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-clean">CLEAN</span></td>
+                            <td>1.2 MB</td>
+                            <td>2 mins ago</td>
+                            <td>
+                                <div class="table-actions">
+                                    <button type="button" class="action-btn" aria-label="Download report.pdf">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <path d="M7 10l5 5 5-5"/>
+                                            <path d="M12 15V3"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="action-btn" aria-label="More options for report.pdf">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <circle cx="12" cy="5" r="1"/>
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="12" cy="19" r="1"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="file-cell">
+                                    <span class="file-type-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                                            <path d="M21 15l-5-5L5 21"/>
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div class="file-name">image.png</div>
+                                        <div class="file-kind">PNG Image</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-scanning">SCANNING</span></td>
+                            <td>3.4 MB</td>
+                            <td>5 mins ago</td>
+                            <td>
+                                <div class="table-actions">
+                                    <button type="button" class="action-btn" aria-label="Download image.png">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <path d="M7 10l5 5 5-5"/>
+                                            <path d="M12 15V3"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="action-btn" aria-label="More options for image.png">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <circle cx="12" cy="5" r="1"/>
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="12" cy="19" r="1"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="file-cell">
+                                    <span class="file-type-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <path d="M14 2v6h6"/>
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div class="file-name">document.pdf</div>
+                                        <div class="file-kind">PDF Document</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="badge badge-quarantined">QUARANTINED</span></td>
+                            <td>2.1 MB</td>
+                            <td>1 hour ago</td>
+                            <td>
+                                <div class="table-actions">
+                                    <button type="button" class="action-btn" aria-label="Download document.pdf">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                            <path d="M7 10l5 5 5-5"/>
+                                            <path d="M12 15V3"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="action-btn" aria-label="More options for document.pdf">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <circle cx="12" cy="5" r="1"/>
+                                            <circle cx="12" cy="12" r="1"/>
+                                            <circle cx="12" cy="19" r="1"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a href="{{ url_for('dashboard') }}" class="link-arrow">View All Files &rarr;</a>
+            </div>
+        </div>
+
+        {# Upload panel — uses the existing upload form and route. #}
+        <div class="card upload-panel">
+            <div class="card-header">
+                <h2>Upload File</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('files.upload') }}" enctype="multipart/form-data" class="upload-form">
+                    <div class="drop-zone">
+                        <div class="drop-zone-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <path d="M17 8l-5-5-5 5"/>
+                                <path d="M12 3v12"/>
+                            </svg>
+                        </div>
+                        <p class="drop-zone-title">Drag and drop your file here</p>
+                        <p class="drop-zone-sub">or click to browse</p>
+                        <label for="file" class="btn btn-primary">+ Choose File</label>
+                        <input type="file" id="file" name="file" class="file-input" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Upload File</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    {# ------------------------------------------------------------------ #
+       Security pipeline
+       ------------------------------------------------------------------ #}
+    <section class="card" aria-label="Security pipeline">
+        <div class="card-header">
+            <h2>Security Pipeline</h2>
+        </div>
+        <div class="card-body">
+            <div class="pipeline">
+                <div class="pipeline-step implemented">
+                    <span class="step-index" aria-hidden="true">1</span>
+                    <span class="step-name">Upload</span>
+                    <span class="step-status">Active</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step implemented">
+                    <span class="step-index" aria-hidden="true">2</span>
+                    <span class="step-name">Filename Validation</span>
+                    <span class="step-status">Active</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step implemented">
+                    <span class="step-index" aria-hidden="true">3</span>
+                    <span class="step-name">Size Validation</span>
+                    <span class="step-status">Active</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step implemented">
+                    <span class="step-index" aria-hidden="true">4</span>
+                    <span class="step-name">MIME Check</span>
+                    <span class="step-status">Active</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step implemented">
+                    <span class="step-index" aria-hidden="true">5</span>
+                    <span class="step-name">Magic Bytes</span>
+                    <span class="step-status">Active</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step planned">
+                    <span class="step-index" aria-hidden="true">6</span>
+                    <span class="step-name">Malware Scan (ClamAV)</span>
+                    <span class="step-status">Planned</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step planned">
+                    <span class="step-index" aria-hidden="true">7</span>
+                    <span class="step-name">CDR</span>
+                    <span class="step-status">Planned</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step planned">
+                    <span class="step-index" aria-hidden="true">8</span>
+                    <span class="step-name">Encryption</span>
+                    <span class="step-status">Planned</span>
+                </div>
+                <div class="pipeline-arrow" aria-hidden="true">&#8595;</div>
+                <div class="pipeline-step planned">
+                    <span class="step-index" aria-hidden="true">9</span>
+                    <span class="step-name">Secure Storage</span>
+                    <span class="step-status">Planned</span>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
